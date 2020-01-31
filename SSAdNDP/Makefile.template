@@ -1,0 +1,14 @@
+#use: ./mkmf -t Makefile.template -p ssadndp.exe
+#to generate a proper makefile
+
+#or: perl mkmf -t Makefile.template -p ssadndp.exe
+#if perl is not in /usr/bin/perl
+
+MODULE_PATH=/opt/intel/compilers_and_libraries_2019.3.199/linux/mkl/include/intel64/lp64
+MKL_LIB=/opt/intel/compilers_and_libraries_2019.3.199/linux/mkl/lib/intel64
+
+FC=ifort
+LD=ifort
+#FFLAGS=-check all -check noarg_temp_created -g -traceback -warn unused -I $(MODULE_PATH)
+FFLAGS= -vec-report0 -qopenmp -I$(MODULE_PATH)
+LDFLAGS=-L$(MKL_LIB) -lmkl_core -lmkl_intel_lp64 -lmkl_sequential $(MKL_LIB)/libmkl_blas95_lp64.a $(MKL_LIB)/libmkl_lapack95_lp64.a -qopenmp
